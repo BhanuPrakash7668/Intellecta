@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+langchain
+langgraph
+langsmith
+apache-airflow
+sqlalchemy
+psycopg2-binary
+chromadb
+python-dotenv
+openai
+transformers
+torch

@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  api:
+    build: .
+    env_file: .env
+    depends_on:
+      - postgres
+      - chroma
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    volumes:
+      - .:/app
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  chroma:
+    image: ghcr.io/chroma-core/chroma:latest
+    environment:
+      CHROMA_SERVER_HOST: 0.0.0.0
+    ports:
+      - "${CHROMA_PORT}:8000"
+volumes:
+  pgdata:
